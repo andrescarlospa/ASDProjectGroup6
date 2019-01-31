@@ -15,7 +15,7 @@ public abstract class CardPile implements Cloneable{
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-		List<Card> clonedCards = new ArrayList<>();
+		List<Card> clonedCards = new LinkedList<>();
 		for(Card card : cards) {
 			clonedCards.add((Card) card.clone());
 		}

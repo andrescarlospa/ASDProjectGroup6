@@ -41,7 +41,6 @@ public class GameBoard {
 
 	@FXML
 	public void handleBookCopy() {
-		mainApp.showBookCopy();
 	}
 
 	@FXML
@@ -56,7 +55,6 @@ public class GameBoard {
 	
 	@FXML
 	public void handleOverdue() {
-		//mainApp.showOverdue();
 	}
 	
 }

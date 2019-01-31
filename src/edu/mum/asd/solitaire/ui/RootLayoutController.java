@@ -26,12 +26,10 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleChekoutBook() {
-		//
 	}
 
 	@FXML
 	public void handleBookCopy() {
-		mainApp.showBookCopy();
 	}
 
 	@FXML

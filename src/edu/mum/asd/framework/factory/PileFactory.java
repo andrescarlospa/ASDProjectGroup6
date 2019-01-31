@@ -38,7 +38,7 @@ public class PileFactory implements IPileFactory{
 			return suits;
 		}else if(type.equals("TABLE")) {
 			List<CardPile> tablePiles = new ArrayList<>();
-			for(int c = 1;c<=TablePile.numberSuits;c++)
+			for(int c = 1;c<=TablePile.numberPiles;c++)
 			{
 				List<Card> cards = new ArrayList<>();
 				for (int i = 0; i < c; i++) {

@@ -8,6 +8,6 @@ public class TablePile extends CardPile{
 		this.cards = cards;
 	}
 
-	private static int numberPiles = 7;
+	public static int numberPiles = 7;
 	
 }
