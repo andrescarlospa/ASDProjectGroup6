@@ -3,6 +3,8 @@ package edu.mum.asd.framework.game;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import edu.mum.asd.framework.Card;
+
 //////////////////////////////////////
 //Defines a CardPile class
 //

@@ -1,4 +1,4 @@
-package edu.mum.asd.framework.game;
+package edu.mum.asd.framework;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,10 +8,10 @@ import java.awt.Graphics;
 //
 //used by CardPile
 ////////////////////////
-class Card {
+public class Card implements Cloneable{
 	// data fields for colors and suits
-	final static int width = 50;
-	final static int height = 70;
+	public final static int width = 50;
+	public final static int height = 70;
 
 	final static int red = 0;
 	final static int black = 1;
@@ -32,7 +32,7 @@ class Card {
 	private int suit;
 
 	// constructor
-	Card(int s, int r) {
+	public Card(int s, int r) {
 		suit = s;
 		rank = r;
 		faceup = false;
@@ -128,5 +128,11 @@ class Card {
 			g.drawLine(x + 5, y + 35, x + 45, y + 35);
 			g.drawLine(x + 5, y + 50, x + 45, y + 50);
 		}
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 }

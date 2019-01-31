@@ -1,5 +1,7 @@
 package edu.mum.asd.framework.game;
 
+import edu.mum.asd.framework.Card;
+
 ///////////////////////////////
 //Defines a DiscardPile class
 ///////////////////////////////
