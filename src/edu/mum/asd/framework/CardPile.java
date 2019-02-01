@@ -1,8 +1,8 @@
 package edu.mum.asd.framework;
 
 
-import edu.mum.asd.framework.game.LinkedList;
-import edu.mum.asd.framework.game.ListIterator;
+import edu.mum.asd.framework.iterator.LinkedList;
+import edu.mum.asd.framework.iterator.ListIterator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

@@ -1,6 +1,6 @@
 package edu.mum.asd.framework;
 
-import edu.mum.asd.framework.game.LinkedList;
+import edu.mum.asd.framework.iterator.LinkedList;
 
 public class DiscardPile extends CardPile{
 	public DiscardPile(int x, int y) {

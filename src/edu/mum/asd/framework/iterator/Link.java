@@ -1,4 +1,4 @@
-package edu.mum.asd.framework.game;
+package edu.mum.asd.framework.iterator;
 
 ////////////////////////
 //Defines a Link class

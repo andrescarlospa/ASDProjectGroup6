@@ -9,7 +9,7 @@ import edu.mum.asd.framework.DeckPile;
 import edu.mum.asd.framework.DiscardPile;
 import edu.mum.asd.framework.SuitPile;
 import edu.mum.asd.framework.TablePile;
-import edu.mum.asd.framework.game.LinkedList;
+import edu.mum.asd.framework.iterator.LinkedList;
 
 public class PileFactory implements IPileFactory{
 	
