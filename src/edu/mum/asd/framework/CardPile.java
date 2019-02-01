@@ -1,8 +1,8 @@
 package edu.mum.asd.framework;
 
-import java.util.LinkedList;
-import java.util.List;
 
+import edu.mum.asd.framework.game.LinkedList;
+import edu.mum.asd.framework.game.ListIterator;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -10,7 +10,7 @@ public abstract class CardPile implements Cloneable {
 
 	protected static String names[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
-	protected List<Card> cards;
+	protected LinkedList cards;
 
 	public static int numberSuits = 4;
 
@@ -20,22 +20,26 @@ public abstract class CardPile implements Cloneable {
 	CardPile(int x, int y) {
 		this.x = x;
 		this.y = y;
-		cards = new LinkedList<>();
+		cards = new LinkedList();
 	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
-		List<Card> clonedCards = new LinkedList<>();
-		for (Card card : cards) {
-			clonedCards.add((Card) card.clone());
+		LinkedList clonedCards = new LinkedList();
+		
+		ListIterator iterator = cards.iterator();
+		while (!iterator.atEnd()) {
+			clonedCards.add(((Card)iterator.current()).clone());
+			iterator.next();
 		}
+		
 		CardPile clone = (CardPile) super.clone();
 		clone.cards = clonedCards;
 		return clone;
 	}
 
-	public List<Card> getCards() {
+	public LinkedList getCards() {
 		return cards;
 	}
 
@@ -44,13 +48,15 @@ public abstract class CardPile implements Cloneable {
 	}
 
 	public void display(GraphicsContext gc) {
-		if (cards.isEmpty()) {
+		if (cards.empty()) {
 			gc.setFill(Color.GRAY);
 			gc.fillRect(x, y, Card.width, Card.height);
 		} else
-			cards.get(0).draw(gc, x, y);
-		// top().draw(g, x, y);
-
+			((Card)top()).draw(gc, x, y);
+	}
+	
+	public final Card top() {
+		return (Card) cards.front();
 	}
 
 	public abstract boolean canTake(Card card);
@@ -63,9 +69,14 @@ public abstract class CardPile implements Cloneable {
 		cards.add(card);
 	}
 
-	// get number of cards in pile
 	public int getNoCards() {
-		return cards.size();
+		int count = 0;
+		ListIterator iterator = cards.iterator();
+		while (!iterator.atEnd()) {
+			count++;
+			iterator.next();
+		}
+		return count;
 	}
 
 }

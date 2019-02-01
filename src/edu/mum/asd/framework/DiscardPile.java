@@ -1,6 +1,6 @@
 package edu.mum.asd.framework;
 
-import java.util.ArrayList;
+import edu.mum.asd.framework.game.LinkedList;
 
 public class DiscardPile extends CardPile{
 	public DiscardPile(int x, int y) {
@@ -20,6 +20,6 @@ public class DiscardPile extends CardPile{
 	}
 	
 	public void clear() {
-		this.cards = new ArrayList<>();
+		this.cards = new LinkedList();
 	}
 }

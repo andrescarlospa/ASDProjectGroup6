@@ -5,7 +5,7 @@ package edu.mum.asd.framework.game;
 //
 //used by LinkedList
 ////////////////////////////////
-class ListIterator {
+public class ListIterator {
 	private Link currentLink;
 
 	public ListIterator(Link firstLink) {

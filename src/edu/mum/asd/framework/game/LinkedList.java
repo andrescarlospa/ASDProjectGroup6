@@ -5,7 +5,7 @@ package edu.mum.asd.framework.game;
 //
 //used by CardPile
 //////////////////////////////
-class LinkedList {
+public class LinkedList {
 	private Link firstLink;
 
 	public LinkedList() {

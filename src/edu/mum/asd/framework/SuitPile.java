@@ -25,7 +25,11 @@ public class SuitPile extends CardPile{
 	@Override
 	public boolean canTake(Card card) {
 		// TODO Auto-generated method stub
-		return false;
+		if (getCards().empty())
+			return card.isAce();
+
+		Card topCard = top();
+		return (card.suit() == topCard.suit()) && (card.rank() == 1 + topCard.rank());
 	}
 
 	@Override

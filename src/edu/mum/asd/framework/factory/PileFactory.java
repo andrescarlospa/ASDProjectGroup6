@@ -9,6 +9,7 @@ import edu.mum.asd.framework.DeckPile;
 import edu.mum.asd.framework.DiscardPile;
 import edu.mum.asd.framework.SuitPile;
 import edu.mum.asd.framework.TablePile;
+import edu.mum.asd.framework.game.LinkedList;
 
 public class PileFactory implements IPileFactory{
 	
@@ -43,14 +44,14 @@ public class PileFactory implements IPileFactory{
 			List<CardPile> tablePiles = new ArrayList<>();
 			for(int c = 1;c<=TablePile.numberPiles;c++)
 			{
-				List<Card> cards = new ArrayList<>();
+				LinkedList cards = new LinkedList();
 				for (int i = 0; i < c; i++) {
-					cards.add(deck.getCards().remove(0));
+					cards.add(deck.getCards().pop());
 				}
 				
 				TablePile tp = new TablePile(cards, leftMargin + (Card.width + distTable) * c,
 						Card.height + distTable + topMargin);
-				Card top = tp.getCards().get(0);
+				Card top = (Card) tp.getCards().front();
 				// flip topmost card face up
 				top.flip();
 				tablePiles.add(tp);

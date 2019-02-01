@@ -6,6 +6,9 @@ import edu.mum.asd.framework.Card;
 import edu.mum.asd.framework.CardPile;
 import edu.mum.asd.framework.DeckPile;
 import edu.mum.asd.framework.DiscardPile;
+import edu.mum.asd.framework.SuitPile;
+import edu.mum.asd.framework.TablePile;
+import edu.mum.asd.framework.game.ListIterator;
 import edu.mum.asd.framework.game.Solitaire;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -56,7 +59,8 @@ public class Main extends Application {
 			
 			
 			Group root = new Group();
-	        Canvas canvas = new Canvas(800, 600);
+	        Canvas canvas = new Canvas(800, 800);
+	        
 	        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
 	                new EventHandler<MouseEvent>() {
 	                    @Override
@@ -67,25 +71,34 @@ public class Main extends Application {
 
 	        				for (CardPile pile : application.getExternalizedState().getPiles())
 	        					if (pile.includes(x, y)) {
-	        						if(pile.getCards().isEmpty() && pile instanceof DeckPile) {
-	        							application.getExternalizedState().getDiscard().getCards().stream()
-	        							.forEach(card->{
+	        						if(pile.getCards().empty() && pile instanceof DeckPile) {
+	        							
+	        							ListIterator iterator = application.getExternalizedState().getDiscard().getCards().iterator();
+
+	        							// build reversed order list
+	        							while (!iterator.atEnd()) {
+	        								Card card = (Card) iterator.current();
+	        								card.flip();
 	        								pile.addCard(card);
-	        							});
+	        								iterator.next();
+	        							}
 	        							((DiscardPile)application.getExternalizedState().getDiscard()).clear();
-	        							Card top = pile.getCards().get(0);
-	        							top.flip();
 	        						}else if(pile instanceof DeckPile){
-	        							pile.select(x, y);
-	        							Card card = pile.getCards().remove(0);
+	        							Card card = (Card)pile.getCards().pop();
 	        							card.flip();
 	        							application.getExternalizedState().getDiscard().addCard(card);
+	        						}else if(pile instanceof TablePile) {
+	        							// if face down, then flip
+	        							tablePileLogic(pile);
+	        							
+	        						}else if(pile instanceof DiscardPile) {
+	        							dicardPileLogic(pile);
 	        						}
+	        						
 	        						repaint(canvas);
+	        						break;
 	        					}
 	                        	System.out.println(t.getX());
-	                            //reset(canvas, Color.BLUE);
-	                        //}  
 	                    }
 	                });
 	        
@@ -101,30 +114,100 @@ public class Main extends Application {
 		}
 	}
 	
-	private void drawShapes(GraphicsContext gc) {
-        gc.setFill(Color.GREEN);
-        
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(2);
-        //gc.strokeLine(40, 10, 10, 40);
-        //gc.fillOval(10, 60, 30, 30);
-        //gc.strokeOval(60, 60, 30, 30);
-        //gc.fillRoundRect(110, 60, 30, 30, 10, 10);
-        gc.fillRect(160, 60, 50, 70);
-        //gc.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN);
-        //gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
-        //gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND);
-        //gc.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN);
-        //gc.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD);
-        //gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
-        //gc.fillPolygon(new double[]{10, 40, 10, 40},
-        //               new double[]{210, 210, 240, 240}, 4);
-        //gc.strokePolygon(new double[]{60, 90, 60, 90},
-        //                 new double[]{210, 210, 240, 240}, 4);
-        //gc.strokePolyline(new double[]{110, 140, 110, 140},
-        //                  new double[]{210, 210, 240, 240}, 4);
-    }
+	public void dicardPileLogic(CardPile pile) {
+		if (pile.getCards().empty())
+			return;
 
+		Card topCard = (Card)pile.getCards().front();
+
+		// check the SuitPile's first
+		for (int i = 0; i < SuitPile.numberSuits; i++)
+			if (application.getExternalizedState().getSuits().get(i).canTake(topCard)) {
+				application.getExternalizedState().getSuits().get(i).addCard((Card)pile.getCards().pop());
+				return;
+			}
+
+		// then check the TablePile's
+		
+		for (int i = 0; i < TablePile.numberPiles; i++)
+			if (application.getExternalizedState().getTablePiles().get(i).canTake(topCard)) {
+				application.getExternalizedState().getTablePiles().get(i).addCard((Card)pile.getCards().pop());
+
+				return;
+			}
+	}
+	
+	public void tablePileLogic(CardPile pile) {
+		if (pile.getCards().empty())
+			return;
+		
+		Card topCard = (Card)pile.getCards().front();
+		if (!topCard.faceUp()) {
+			topCard.flip();
+		}else {
+			
+			
+			for (int i = 0; i < SuitPile.numberSuits; i++)
+				if (application.getExternalizedState().getSuits().get(i).canTake(topCard)) {
+					application.getExternalizedState().getSuits().get(i).addCard((Card)pile.getCards().pop());
+					return;
+				}
+
+			// try to create a build
+			CardPile build = new SuitPile(0, 0);
+
+			// get the cards for the build from the suit pile
+			while (!pile.getCards().empty()) {
+				// stop if we reached a card that is face down
+				if (!((Card)pile.getCards().front()).faceUp())
+					break;
+				build.addCard(((Card)pile.getCards().pop()));
+			}
+
+			// We don't allow the user to play a King card
+			// that is at the bottom of a table pile
+			// to another table pile
+			if (build.top().isKing() && pile.getCards().empty()) {
+				while (!build.getCards().empty())
+					pile.addCard((Card)build.getCards().pop());
+				return;
+			}
+
+			// if we have to play only one card
+			if (build.top() == topCard) {
+				// put it back into the table pile
+				pile.getCards().add(build.getCards().pop());
+
+				// we have already tried the suit piles
+				// see if any other table pile can take card
+				for (int i = 0; i < TablePile.numberPiles; i++)
+					if ( application.getExternalizedState().getTablePiles().get(i).canTake(topCard)) {
+						application.getExternalizedState().getTablePiles().get(i).addCard((Card) pile.getCards().pop());
+						return;
+					}
+			} else // we got ourselves a build to play
+			{
+				topCard = build.top();
+
+				// see if any other table pile can take this build
+				for (int i = 0; i < TablePile.numberPiles; i++)
+					if (application.getExternalizedState().getTablePiles().get(i).canTake(topCard)) {
+						while (!build.getCards().empty())
+							application.getExternalizedState().getTablePiles().get(i).addCard((Card)build.getCards().pop());
+
+						return;
+					}
+
+				// can't play the build?
+				// then we must restore our pile
+				while (!build.getCards().empty())
+					pile.getCards().add((Card)build.getCards().pop());
+			}
+			
+			
+		}
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -150,6 +233,7 @@ public class Main extends Application {
 	}
 	
 	public void paintPiles(GraphicsContext gc) {
+		gc.clearRect(0, 0, 800, 800);
 		gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(2);
