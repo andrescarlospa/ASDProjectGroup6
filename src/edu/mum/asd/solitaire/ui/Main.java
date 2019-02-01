@@ -2,13 +2,20 @@ package edu.mum.asd.solitaire.ui;
 
 import java.io.IOException;
 
+import edu.mum.asd.framework.Card;
+import edu.mum.asd.framework.CardPile;
+import edu.mum.asd.framework.DeckPile;
+import edu.mum.asd.framework.DiscardPile;
+import edu.mum.asd.framework.game.Solitaire;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -21,8 +28,10 @@ public class Main extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private edu.mum.asd.framework.singleton.Application application;
 
 	public Main() {
+		this.application = edu.mum.asd.framework.singleton.Application.getGameInstance();
 	}
 
 	public Stage getPrimaryStage() {
@@ -35,7 +44,6 @@ public class Main extends Application {
 		this.primaryStage.setTitle("Solitaire");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
 		initRootLayout();
-		showMenu();
 	}
 
 	public void initRootLayout() {
@@ -47,13 +55,44 @@ public class Main extends Application {
 			controller.setMainApp(this);
 			
 			
-			//Group root = new Group();
-	        Canvas canvas = new Canvas(300, 250);
+			Group root = new Group();
+	        Canvas canvas = new Canvas(800, 600);
+	        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+	                new EventHandler<MouseEvent>() {
+	                    @Override
+	                    public void handle(MouseEvent t) {            
+	                        //if (t.getClickCount() >1) {
+	                    	double x = t.getX();
+	        				double y = t.getY();
+
+	        				for (CardPile pile : application.getExternalizedState().getPiles())
+	        					if (pile.includes(x, y)) {
+	        						if(pile.getCards().isEmpty() && pile instanceof DeckPile) {
+	        							application.getExternalizedState().getDiscard().getCards().stream()
+	        							.forEach(card->{
+	        								pile.addCard(card);
+	        							});
+	        							((DiscardPile)application.getExternalizedState().getDiscard()).clear();
+	        							Card top = pile.getCards().get(0);
+	        							top.flip();
+	        						}else if(pile instanceof DeckPile){
+	        							pile.select(x, y);
+	        							Card card = pile.getCards().remove(0);
+	        							card.flip();
+	        							application.getExternalizedState().getDiscard().addCard(card);
+	        						}
+	        						repaint(canvas);
+	        					}
+	                        	System.out.println(t.getX());
+	                            //reset(canvas, Color.BLUE);
+	                        //}  
+	                    }
+	                });
+	        
 	        GraphicsContext gc = canvas.getGraphicsContext2D();
-	        drawShapes(gc);
-	        rootLayout.getChildren().add(canvas);
-			
-			
+	        paintPiles(gc);
+	        root.getChildren().add(canvas);
+	        rootLayout.setCenter(root);
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -95,6 +134,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("GameBoard.fxml"));
 			AnchorPane menu = (AnchorPane) loader.load();
+			
 			rootLayout.setCenter(menu);
 			primaryStage.setTitle("");
 			GameBoard menuController = loader.getController();
@@ -102,6 +142,19 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void repaint(Canvas canvas){
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		paintPiles(gc);
+	}
+	
+	public void paintPiles(GraphicsContext gc) {
+		gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLUE);
+        gc.setLineWidth(2);
+		for (CardPile pile : application.getExternalizedState().getPiles())
+			pile.display(gc);
 	}
 
 }

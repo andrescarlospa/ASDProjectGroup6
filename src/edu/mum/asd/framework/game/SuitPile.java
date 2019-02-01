@@ -1,6 +1,5 @@
 package edu.mum.asd.framework.game;
 
-import edu.mum.asd.framework.Card;
 
 ////////////////////////////
 //Defines a SuitPile class

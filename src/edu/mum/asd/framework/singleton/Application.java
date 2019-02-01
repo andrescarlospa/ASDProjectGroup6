@@ -8,9 +8,12 @@ import edu.mum.asd.framework.memento.Memento;
 public class Application {
 
 	private GameBoard gameBoard;
+	
 	private List<Memento> savedGames;
 
 	private Application() {
+		gameBoard = new GameBoard();
+		gameBoard.initialization();
 	}
 
 	private static class Singleton {
@@ -21,7 +24,7 @@ public class Application {
 		return Singleton.INSTANCE;
 	}
 
-	GameBoard getExternalizedState() {
+	public GameBoard getExternalizedState() {
 		return gameBoard;
 	}
 

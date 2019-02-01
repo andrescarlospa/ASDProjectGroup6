@@ -1,10 +1,5 @@
 package edu.mum.asd.framework.game;
 
-import edu.mum.asd.framework.Card;
-
-////////////////////////////
-//Defines a DeckPile class
-////////////////////////////
 class DeckPile extends CardPile {
 	DeckPile(int x, int y) {
 		// first initialize parent

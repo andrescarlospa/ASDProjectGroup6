@@ -1,10 +1,12 @@
 package edu.mum.asd.solitaire.ui;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
  
@@ -19,6 +21,17 @@ public class BasicOpsTest extends Application {
         primaryStage.setTitle("Drawing Operations Test");
         Group root = new Group();
         Canvas canvas = new Canvas(300, 250);
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {            
+                        //if (t.getClickCount() >1) {
+                        	
+                        	System.out.println(t.getX());
+                            //reset(canvas, Color.BLUE);
+                        //}  
+                    }
+                });
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawShapes(gc);
         root.getChildren().add(canvas);

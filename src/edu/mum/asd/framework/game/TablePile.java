@@ -2,7 +2,6 @@ package edu.mum.asd.framework.game;
 
 import java.awt.Graphics;
 
-import edu.mum.asd.framework.Card;
 
 /////////////////////////////
 //Defines a TablePile class

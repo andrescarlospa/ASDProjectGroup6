@@ -9,19 +9,22 @@ import edu.mum.asd.framework.DeckPile;
 import edu.mum.asd.framework.DiscardPile;
 import edu.mum.asd.framework.SuitPile;
 import edu.mum.asd.framework.TablePile;
-import edu.mum.asd.framework.game.Solitaire;
 
 public class PileFactory implements IPileFactory{
+	
+	final static int topMargin = 40;
+	final static int leftMargin = 5;
+	final static int distTable = 5;
+	final static int distSuit = 10;
+
 
 	@Override
 	public CardPile createPile(String type) {
-		
+		int xDeck = leftMargin + (TablePile.numberPiles - 1) * (Card.width + distTable);
 		if(type.equals("DECK")) {
-			return new DeckPile();
+			return new DeckPile(xDeck, topMargin);
 		}else if(type.equals("DISCARD")) {
-			return new DiscardPile();
-		}else if(type.equals("SUIT")) {
-			return new SuitPile();
+			return new DiscardPile(xDeck - Card.width - distSuit, topMargin);
 		}
 		return null;
 	}
@@ -31,7 +34,7 @@ public class PileFactory implements IPileFactory{
 		if(type.equals("SUIT")) {
 			List<CardPile> suits = new ArrayList<>();
 			for(int i = 0 ;i < CardPile.numberSuits;i++) {
-				SuitPile sp = (SuitPile) this.createPile("SUIT");
+				SuitPile sp = new SuitPile(leftMargin + (Card.width + distSuit) * i, topMargin);
 				sp.setSuit(i);
 				suits.add(sp);
 			}
@@ -45,7 +48,8 @@ public class PileFactory implements IPileFactory{
 					cards.add(deck.getCards().remove(0));
 				}
 				
-				TablePile tp = new TablePile(cards);
+				TablePile tp = new TablePile(cards, leftMargin + (Card.width + distTable) * c,
+						Card.height + distTable + topMargin);
 				Card top = tp.getCards().get(0);
 				// flip topmost card face up
 				top.flip();
