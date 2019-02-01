@@ -59,13 +59,12 @@ public class Main extends Application {
 			
 			
 			Group root = new Group();
-	        Canvas canvas = new Canvas(800, 800);
+	        Canvas canvas = new Canvas(800, 600);
 	        
 	        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
 	                new EventHandler<MouseEvent>() {
 	                    @Override
 	                    public void handle(MouseEvent t) {            
-	                        //if (t.getClickCount() >1) {
 	                    	double x = t.getX();
 	        				double y = t.getY();
 
@@ -233,7 +232,7 @@ public class Main extends Application {
 	}
 	
 	public void paintPiles(GraphicsContext gc) {
-		gc.clearRect(0, 0, 800, 800);
+		gc.clearRect(0, 0, 800, 600);
 		gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(2);

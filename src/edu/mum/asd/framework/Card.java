@@ -81,11 +81,12 @@ public class Card implements Cloneable{
     Image diamonds = new Image("file:resources/images/diamonds.png");
     Image clubs = new Image("file:resources/images/clubs.png");
     Image hearts = new Image("file:resources/images/hearts.png");
+    Image back = new Image("file:resources/images/back.jpg");
 	// draw the card
 	public void draw(GraphicsContext gc, int x, int y) {
 		// clear rectangle, draw border
 		gc.clearRect(x, y, width, height);
-		gc.setFill(Color.GREEN);
+		gc.setFill(Color.WHITE);
 		gc.fillRect(x, y, width, height);
 
 		// draw body of card
@@ -95,22 +96,23 @@ public class Card implements Cloneable{
 			else
 				gc.setFill(Color.BLACK);
 			gc.fillText(names[rank()], x + 3, y + 15);
-			gc.fillText(names[rank()], x + 40, y + 60);
+			gc.fillText(names[rank()], x + 35, y + 65);
 			
 
 
 			if (suit() == heart) {
-				gc.drawImage(hearts, x+10, y+20, 30, 30);
+				gc.drawImage(hearts, x+10, y+22, 30, 30);
 			} else if (suit() == spade) {
-				gc.drawImage(spades, x+10, y+20, 30, 30);
+				gc.drawImage(spades, x+10, y+22, 30, 30);
 			} else if (suit() == diamond) {
-				gc.drawImage(diamonds, x+10, y+20, 30, 30);
+				gc.drawImage(diamonds, x+10, y+22, 30, 30);
 			} else if (suit() == club) {
-				gc.drawImage(clubs, x+10	, y+20, 30, 30);
+				gc.drawImage(clubs, x+10, y	+22, 30, 30);
 			}
 		} else // face down
 		{
 			gc.setFill(Color.YELLOW);
+			gc.drawImage(back, x, y, 50, 70);
 			//gc.drawLine(x + 15, y + 5, x + 15, y + 65);
 //			gc.drawLine(x + 35, y + 5, x + 35, y + 65);
 //			gc.drawLine(x + 5, y + 20, x + 45, y + 20);

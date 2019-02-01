@@ -2,7 +2,6 @@ package edu.mum.asd.framework;
 
 import edu.mum.asd.framework.game.LinkedList;
 import edu.mum.asd.framework.game.ListIterator;
-import edu.mum.asd.framework.game.Solitaire;
 import javafx.scene.canvas.GraphicsContext;
 
 public class TablePile extends CardPile{
@@ -20,14 +19,6 @@ public class TablePile extends CardPile{
 	}
 	
 	private void stackDisplay(GraphicsContext g) {
-//		cards.stream().collect(Collectors.toCollection(ArrayDeque::new)) // or LinkedList
-//	      .descendingIterator()
-//	      .forEachRemaining(c->{
-//	    	   		c.draw(g, x, localy);
-//				localy += ydist;
-//	      });
-//		
-//		localy = y;
 		
 		// holds y-coordinate of cards in pile
 		int localy = y;

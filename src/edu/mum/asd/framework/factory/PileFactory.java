@@ -15,7 +15,7 @@ public class PileFactory implements IPileFactory{
 	
 	final static int topMargin = 40;
 	final static int leftMargin = 5;
-	final static int distTable = 5;
+	final static int distTable = 25;
 	final static int distSuit = 10;
 
 
@@ -49,7 +49,7 @@ public class PileFactory implements IPileFactory{
 					cards.add(deck.getCards().pop());
 				}
 				
-				TablePile tp = new TablePile(cards, leftMargin + (Card.width + distTable) * c,
+				TablePile tp = new TablePile(cards, leftMargin + (Card.width + distTable) * (c-1),
 						Card.height + distTable + topMargin);
 				Card top = (Card) tp.getCards().front();
 				// flip topmost card face up
