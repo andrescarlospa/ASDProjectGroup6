@@ -6,7 +6,7 @@ import java.util.List;
 import edu.mum.asd.framework.factory.IPileFactory;
 import edu.mum.asd.framework.factory.PileFactory;
 
-public class GameBoard {
+public class GameBoard implements Cloneable{
 	
 	protected int totalCardPiles = 13;
 	protected int totalSuitPiles = 4;
@@ -73,6 +73,29 @@ public class GameBoard {
 		return tablePiles;
 	}
 	
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		
+		GameBoard gb = (GameBoard) super.clone();
+		
+		gb.piles = new ArrayList<>();
+		gb.deck = (CardPile) deck.clone();
+		gb.discard = (CardPile)discard.clone();
+		gb.suits = new ArrayList<>();
+		for(CardPile suit:suits) {
+			gb.suits.add((CardPile) suit.clone());
+		}
+		gb.tablePiles = new ArrayList<>();
+		for(CardPile table:tablePiles) {
+			gb.tablePiles.add((CardPile) table.clone());
+		}
+		
+		gb.piles.add(gb.deck);
+		gb.piles.add(gb.discard);
+		gb.piles.addAll(gb.suits);
+		gb.piles.addAll(gb.tablePiles);
+		
+		return gb;
+	}
 
 }

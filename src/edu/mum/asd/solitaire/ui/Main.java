@@ -47,6 +47,8 @@ public class Main extends Application {
 		this.primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
 		initRootLayout();
 	}
+	
+	Canvas canvas = new Canvas(800, 600);
 
 	public void initRootLayout() {
 		try {
@@ -58,7 +60,6 @@ public class Main extends Application {
 			
 			
 			Group root = new Group();
-	        Canvas canvas = new Canvas(800, 600);
 	        
 	        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, 
 	                new EventHandler<MouseEvent>() {
@@ -93,7 +94,7 @@ public class Main extends Application {
 	        							dicardPileLogic(pile);
 	        						}
 	        						
-	        						repaint(canvas);
+	        						repaint();
 	        						break;
 	        					}
 	                        	System.out.println(t.getX());
@@ -225,7 +226,7 @@ public class Main extends Application {
 		}
 	}
 	
-	public void repaint(Canvas canvas){
+	public void repaint(){
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		paintPiles(gc);
 	}

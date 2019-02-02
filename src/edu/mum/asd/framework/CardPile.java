@@ -9,11 +9,8 @@ import javafx.scene.paint.Color;
 public abstract class CardPile implements Cloneable {
 
 	protected static String names[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-
 	protected LinkedList cards;
-
 	public static int numberSuits = 4;
-
 	protected int x;
 	protected int y;
 
@@ -26,6 +23,7 @@ public abstract class CardPile implements Cloneable {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
+		
 		LinkedList clonedCards = new LinkedList();
 		
 		ListIterator iterator = cards.iterator();
@@ -35,7 +33,13 @@ public abstract class CardPile implements Cloneable {
 		}
 		
 		CardPile clone = (CardPile) super.clone();
-		clone.cards = clonedCards;
+		clone.cards=new LinkedList();
+		iterator = clonedCards.iterator();
+		while (!iterator.atEnd()) {
+			clone.cards.add(((Card)iterator.current()));
+			iterator.next();
+		}
+		
 		return clone;
 	}
 

@@ -1,5 +1,7 @@
 package edu.mum.asd.solitaire.ui;
 
+import edu.mum.asd.framework.GameBoard;
+import edu.mum.asd.framework.singleton.Application;
 import javafx.fxml.FXML;
 
 public class RootLayoutController {
@@ -37,10 +39,20 @@ public class RootLayoutController {
 	}
 
 	@FXML
-	public void handleAddNewLibraryMember() {
+	public void handleSaveGame() {
+		System.out.println("Saving...");
+		try {
+			Application.getGameInstance().saveToMemento();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
-	public void handleOverdue() {
+	public void handleUndo() {
+		System.out.println("Saving...");
+		Application.getGameInstance().restoreFromMemento();
+		mainApp.repaint();
 	}
 }

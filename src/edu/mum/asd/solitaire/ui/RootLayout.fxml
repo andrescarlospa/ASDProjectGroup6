@@ -16,8 +16,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Game">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAddNewLibraryMember" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOverdue" text="Undo" />
+              <MenuItem mnemonicParsing="false" onAction="#handleSaveGame" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
             </items>
           </Menu>
         </menus>

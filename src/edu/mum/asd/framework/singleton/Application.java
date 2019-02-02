@@ -1,5 +1,7 @@
 package edu.mum.asd.framework.singleton;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import edu.mum.asd.framework.GameBoard;
@@ -14,6 +16,7 @@ public class Application {
 	private Application() {
 		gameBoard = new GameBoard();
 		gameBoard.initialization();
+		savedGames = new LinkedList<>();
 	}
 
 	private static class Singleton {
@@ -28,13 +31,17 @@ public class Application {
 		return gameBoard;
 	}
 
-	public Memento saveToMemento() {
-		return new Memento(gameBoard);
+	public void saveToMemento() throws CloneNotSupportedException {
+		addMemento(new Memento((GameBoard) gameBoard.clone()));
 	}
 
-	public void restoreFromMemento(Memento memento) {
-		gameBoard = memento.getGameBoard();
+	public void restoreFromMemento() {
+		if(savedGames.size()>0)
+			gameBoard = savedGames.remove(savedGames.size()-1).getGameBoard();
 	}
 
+	public void addMemento(Memento memento) {
+		this.savedGames.add(memento);
+	}
 	
 }
