@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.mum.asd.framework.facade.CardGameFacade;
 import edu.mum.asd.framework.singleton.CardGameFramework;
+import edu.mum.asd.framework.strategy.SolitaireStrategy;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +58,8 @@ public class Main extends Application {
 				public void handle(MouseEvent t) {
 					double x = t.getX();
 					double y = t.getY();
-					applicationFacade.moveCard(x, y);
+					applicationFacade.setGameStrategy(new SolitaireStrategy());
+					applicationFacade.playCard(x, y);
 					applicationFacade.repaint(canvas);
 
 				}

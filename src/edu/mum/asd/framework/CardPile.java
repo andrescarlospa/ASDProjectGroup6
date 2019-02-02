@@ -1,12 +1,9 @@
 package edu.mum.asd.framework;
 
-
-import edu.mum.asd.framework.bridge.BasicDrawing;
 import edu.mum.asd.framework.bridge.IDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
 import edu.mum.asd.framework.iterator.ListIterator;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public abstract class CardPile implements Cloneable {
 
