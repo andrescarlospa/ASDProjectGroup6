@@ -1,11 +1,14 @@
 package edu.mum.asd.framework;
 
+import edu.mum.asd.framework.bridge.BasicDrawing;
+
 public class SuitPile extends CardPile{
 	
 	private int suit;
 
 	public SuitPile(int x, int y) {
 		super(x, y);
+		drawing = new BasicDrawing();
 	}
 	
 	public int getSuit() {

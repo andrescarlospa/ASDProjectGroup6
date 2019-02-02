@@ -1,6 +1,8 @@
 package edu.mum.asd.framework;
 
 
+import edu.mum.asd.framework.bridge.BasicDrawing;
+import edu.mum.asd.framework.bridge.IDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
 import edu.mum.asd.framework.iterator.ListIterator;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +15,8 @@ public abstract class CardPile implements Cloneable {
 	public static int numberSuits = 4;
 	protected int x;
 	protected int y;
+	
+	protected IDrawing drawing;
 
 	CardPile(int x, int y) {
 		this.x = x;
@@ -52,11 +56,7 @@ public abstract class CardPile implements Cloneable {
 	}
 
 	public void display(GraphicsContext gc) {
-		if (cards.empty()) {
-			gc.setFill(Color.GRAY);
-			gc.fillRect(x, y, Card.width, Card.height);
-		} else
-			((Card)top()).draw(gc, x, y);
+		drawing.display(gc, cards, x, y);
 	}
 	
 	public final Card top() {

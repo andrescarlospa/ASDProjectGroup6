@@ -1,16 +1,7 @@
 package edu.mum.asd.framework;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-
-////////////////////////
-//Defines a Card class
-//
-//used by CardPile
-////////////////////////
 public class Card implements Cloneable{
-	// data fields for colors and suits
+
 	public final static int width = 50;
 	public final static int height = 70;
 
@@ -24,8 +15,6 @@ public class Card implements Cloneable{
 
 	final static int ace = 0;
 	final static int king = 12;
-
-	private static String names[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
 	// data fields
 	private boolean faceup;
@@ -77,50 +66,6 @@ public class Card implements Cloneable{
 		return black;
 	}
 
-	Image spades = new Image("file:resources/images/spades.png");
-    Image diamonds = new Image("file:resources/images/diamonds.png");
-    Image clubs = new Image("file:resources/images/clubs.png");
-    Image hearts = new Image("file:resources/images/hearts.png");
-    Image back = new Image("file:resources/images/back.jpg");
-	// draw the card
-	public void draw(GraphicsContext gc, int x, int y) {
-		// clear rectangle, draw border
-		gc.clearRect(x, y, width, height);
-		gc.setFill(Color.WHITE);
-		gc.fillRect(x, y, width, height);
-
-		// draw body of card
-		if (faceUp()) {
-			if (color() == red)
-				gc.setFill(Color.RED);
-			else
-				gc.setFill(Color.BLACK);
-			gc.fillText(names[rank()], x + 3, y + 15);
-			gc.fillText(names[rank()], x + 35, y + 65);
-			
-
-
-			if (suit() == heart) {
-				gc.drawImage(hearts, x+10, y+22, 30, 30);
-			} else if (suit() == spade) {
-				gc.drawImage(spades, x+10, y+22, 30, 30);
-			} else if (suit() == diamond) {
-				gc.drawImage(diamonds, x+10, y+22, 30, 30);
-			} else if (suit() == club) {
-				gc.drawImage(clubs, x+10, y	+22, 30, 30);
-			}
-		} else // face down
-		{
-			gc.setFill(Color.YELLOW);
-			gc.drawImage(back, x, y, 50, 70);
-			//gc.drawLine(x + 15, y + 5, x + 15, y + 65);
-//			gc.drawLine(x + 35, y + 5, x + 35, y + 65);
-//			gc.drawLine(x + 5, y + 20, x + 45, y + 20);
-//			gc.drawLine(x + 5, y + 35, x + 45, y + 35);
-//			gc.drawLine(x + 5, y + 50, x + 45, y + 50);
-		}
-	}
-	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub

@@ -1,5 +1,6 @@
 package edu.mum.asd.framework;
 
+import edu.mum.asd.framework.bridge.BasicDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
 
 public class DeckPile extends CardPile{
@@ -8,6 +9,7 @@ public class DeckPile extends CardPile{
 		super(x, y);
 		this.create();
 		this.shuffle();
+		drawing = new BasicDrawing();
 	}
 	
 	public void create() {

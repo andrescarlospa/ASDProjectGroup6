@@ -237,7 +237,9 @@ public class Main extends Application {
         gc.setStroke(Color.BLUE);
         gc.setLineWidth(2);
 		for (CardPile pile : application.getExternalizedState().getPiles())
+		{
 			pile.display(gc);
+		}
 	}
 
 }

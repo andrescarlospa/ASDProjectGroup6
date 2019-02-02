@@ -1,7 +1,7 @@
 package edu.mum.asd.framework;
 
+import edu.mum.asd.framework.bridge.StackDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
-import edu.mum.asd.framework.iterator.ListIterator;
 import javafx.scene.canvas.GraphicsContext;
 
 public class TablePile extends CardPile{
@@ -10,42 +10,16 @@ public class TablePile extends CardPile{
 	public TablePile(LinkedList cards, int x, int y) {
 		super(x, y);
 		this.cards = cards;
+		drawing = new StackDrawing();
 	}
 
 	public static int numberPiles = 7;
 	
+	@Override
 	public void display(GraphicsContext gc) {
-		stackDisplay(gc);
+		drawing.display(gc, cards, x, y);
 	}
 	
-	private void stackDisplay(GraphicsContext g) {
-		
-		// holds y-coordinate of cards in pile
-		int localy = y;
-
-		LinkedList reverseCardList = new LinkedList();
-
-		// get iterator for our list
-		ListIterator iterator = cards.iterator();
-
-		// build reversed order list
-		while (!iterator.atEnd()) {
-			reverseCardList.add(iterator.current());
-			iterator.next();
-		}
-
-		// get iterator for reversed order list
-		iterator = reverseCardList.iterator();
-
-		// Go through the reversed order list
-		// and draw each card in the list
-		while (!iterator.atEnd()) {
-			((Card) iterator.current()).draw(g, x, localy);
-			localy += ydist;
-			iterator.next();
-		}
-	}
-
 	@Override
 	public boolean canTake(Card aCard) {
 		if (cards.empty())
