@@ -17,7 +17,7 @@ public class RootLayoutController {
 
 	@FXML
 	public void back() {
-		mainApp.showMenu();
+		//mainApp.showMenu();
 	}
 
 	private Main mainApp;
