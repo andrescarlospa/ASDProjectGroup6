@@ -1,7 +1,7 @@
 package edu.mum.asd.solitaire.ui;
 
 import edu.mum.asd.framework.GameBoard;
-import edu.mum.asd.framework.singleton.Application;
+import edu.mum.asd.framework.singleton.CardGameFramework;
 import javafx.fxml.FXML;
 
 public class RootLayoutController {
@@ -42,7 +42,7 @@ public class RootLayoutController {
 	public void handleSaveGame() {
 		System.out.println("Saving...");
 		try {
-			Application.getGameInstance().saveToMemento();
+			CardGameFramework.getGameInstance().saveToMemento();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class RootLayoutController {
 	@FXML
 	public void handleUndo() {
 		System.out.println("Saving...");
-		Application.getGameInstance().restoreFromMemento();
-		mainApp.repaint();
+		CardGameFramework.getGameInstance().restoreFromMemento();
+		mainApp.getApplicationFacade().repaint(mainApp.getCanvas());
 	}
 }
