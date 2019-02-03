@@ -35,9 +35,4 @@ public class SuitPile extends CardPile{
 		return (card.suit() == topCard.suit()) && (card.rank() == 1 + topCard.rank());
 	}
 
-	@Override
-	public void select(double x, double y) {
-		// TODO Auto-generated method stub
-		
-	}
 }

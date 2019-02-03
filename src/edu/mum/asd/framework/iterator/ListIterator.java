@@ -1,11 +1,6 @@
 package edu.mum.asd.framework.iterator;
 
-////////////////////////////////
-//Defines a ListIterator class
-//
-//used by LinkedList
-////////////////////////////////
-public class ListIterator {
+public class ListIterator implements IListIterator{
 	private Link currentLink;
 
 	public ListIterator(Link firstLink) {

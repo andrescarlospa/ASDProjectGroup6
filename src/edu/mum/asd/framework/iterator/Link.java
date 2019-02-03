@@ -1,10 +1,5 @@
 package edu.mum.asd.framework.iterator;
 
-////////////////////////
-//Defines a Link class
-//
-//used by LinkedList
-////////////////////////
 class Link {
 	private Object valueField;
 	private Link nextLink;

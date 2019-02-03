@@ -45,15 +45,7 @@ public class DeckPile extends CardPile{
 
 	@Override
 	public boolean canTake(Card card) {
-		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void select(double tx, double ty) {
-		// if deck becomes empty, refill from discard pile
-		
-			
 	}
 
 }

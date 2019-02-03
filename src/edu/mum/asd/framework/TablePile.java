@@ -44,8 +44,4 @@ public class TablePile extends CardPile{
 		return x <= tx && tx <= x + Card.width && y <= ty;
 	}
 
-	public void select(double tx, double ty) {
-		
-	}
-	
 }

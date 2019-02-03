@@ -48,7 +48,7 @@ public class SolitaireStrategy implements IGameStrategy{
 			}
 	}
 	
-	public void dicardPileLogic(CardPile pile) {
+	private void dicardPileLogic(CardPile pile) {
 		if (pile.getCards().empty())
 			return;
 
@@ -71,7 +71,7 @@ public class SolitaireStrategy implements IGameStrategy{
 			}
 	}
 	
-	public void tablePileLogic(CardPile pile) {
+	private void tablePileLogic(CardPile pile) {
 		if (pile.getCards().empty())
 			return;
 		

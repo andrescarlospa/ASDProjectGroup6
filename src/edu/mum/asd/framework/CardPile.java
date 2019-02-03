@@ -62,10 +62,6 @@ public abstract class CardPile implements Cloneable {
 
 	public abstract boolean canTake(Card card);
 
-	// to be overridden by descendants
-	public abstract void select(double x, double y);
-
-	// add a card to pile
 	public void addCard(Card card) {
 		cards.add(card);
 	}

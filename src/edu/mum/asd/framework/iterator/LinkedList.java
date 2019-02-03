@@ -1,11 +1,6 @@
 package edu.mum.asd.framework.iterator;
 
-//////////////////////////////
-//Defines a LinkedList class
-//
-//used by CardPile
-//////////////////////////////
-public class LinkedList {
+public class LinkedList implements ILinkedList{
 	private Link firstLink;
 
 	public LinkedList() {

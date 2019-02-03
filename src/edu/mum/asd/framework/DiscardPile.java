@@ -14,10 +14,6 @@ public class DiscardPile extends CardPile{
 		return false;
 	}
 
-	@Override
-	public void select(double x, double y) {
-	}
-	
 	public void clear() {
 		this.cards = new LinkedList();
 	}
