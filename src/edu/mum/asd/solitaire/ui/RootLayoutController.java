@@ -1,6 +1,7 @@
 package edu.mum.asd.solitaire.ui;
 
 import edu.mum.asd.framework.singleton.CardGameFramework;
+import edu.mum.asd.framework.strategy.SolitaireStrategy;
 import javafx.fxml.FXML;
 
 public class RootLayoutController {
@@ -34,7 +35,9 @@ public class RootLayoutController {
 	}
 
 	@FXML
-	public void handleAddNewBook() {
+	public void handleNewGame() {
+		CardGameFramework.getGameInstance().getExternalizedState().initialization();
+		mainApp.getApplicationFacade().repaint(mainApp.getCanvas());
 	}
 
 	@FXML
