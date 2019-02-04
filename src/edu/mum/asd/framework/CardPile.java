@@ -52,9 +52,9 @@ public abstract class CardPile implements Cloneable {
 		return x <= tx && tx <= x + Card.width && y <= ty && ty <= y + Card.height;
 	}
 
-	public void display(GraphicsContext gc) {
-		drawing.display(gc, cards, x, y);
-	}
+	public abstract void display(GraphicsContext gc);// {
+	//	drawing.display(gc, cards, x, y);
+//	}
 	
 	public final Card top() {
 		return (Card) cards.front();

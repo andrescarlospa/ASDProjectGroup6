@@ -1,6 +1,7 @@
 package edu.mum.asd.framework;
 
 import edu.mum.asd.framework.bridge.BasicDrawing;
+import javafx.scene.canvas.GraphicsContext;
 
 public class SuitPile extends CardPile{
 	
@@ -17,6 +18,11 @@ public class SuitPile extends CardPile{
 
 	public void setSuit(int suit) {
 		this.suit = suit;
+	}
+	
+	@Override
+	public void display(GraphicsContext gc) {
+		drawing.display(gc, cards, x, y);
 	}
 
 	@Override

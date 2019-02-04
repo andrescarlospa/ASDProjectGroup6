@@ -2,6 +2,7 @@ package edu.mum.asd.framework;
 
 import edu.mum.asd.framework.bridge.BasicDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
+import javafx.scene.canvas.GraphicsContext;
 
 public class DeckPile extends CardPile{
 	
@@ -18,7 +19,10 @@ public class DeckPile extends CardPile{
 				cards.add(new Card(i, j));
 			}
 	}
-	
+	@Override
+	public void display(GraphicsContext gc) {
+		drawing.display(gc, cards, x, y);
+	}
 	public void shuffle() {
 		int count = getNoCards();
 		LinkedList sorted = cards;

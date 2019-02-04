@@ -4,7 +4,7 @@ import edu.mum.asd.framework.bridge.StackDrawing;
 import edu.mum.asd.framework.iterator.LinkedList;
 import javafx.scene.canvas.GraphicsContext;
 
-public class TablePile extends CardPile{
+public class TablePile extends CardPile {
 	final static int ydist = 25;
 
 	public TablePile(LinkedList cards, int x, int y) {
@@ -14,12 +14,12 @@ public class TablePile extends CardPile{
 	}
 
 	public static int numberPiles = 7;
-	
+
 	@Override
 	public void display(GraphicsContext gc) {
 		drawing.display(gc, cards, x, y);
 	}
-	
+
 	@Override
 	public boolean canTake(Card aCard) {
 		if (cards.empty())
